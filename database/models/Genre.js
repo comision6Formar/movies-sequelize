@@ -25,6 +25,7 @@ module.exports = (sequelize,dataTypes) => {
     }
 
     let config = {
+        tableName : 'genres',
         underscored : true
     }
 
