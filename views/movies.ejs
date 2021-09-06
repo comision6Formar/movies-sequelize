@@ -15,18 +15,26 @@
 
                             </div>
                             <div class="col-12 col-md-4">
-                                <form action="/movies/filter">
-                                    <select name="genero" id="">
-                                        <option value="" selected hidden>Filtrar por género...</option>
-                                        <% genres.forEach(genre => { %>
-                                            <option value="<%= genre.id %>"><%= genre.name %> </option>
-                                        <% }) %>
-                                    </select>
-                                    <button type="submit" class="btn btn-secondary">Filtrar</button>
+                                <form action="/movies/filter" class="row">
+                                    <div class="col-8">
+                                        <select name="genero" id="" class="form-select">
+                                            <option value="" selected hidden>Filtrar por género...</option>
+                                            <% genres.forEach(genre => { %>
+                                                <option value="<%= genre.id %>"><%= genre.name %></option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-secondary">Filtrar</button>
+
+                                    </div>
                                 </form>
                             </div>
                             <div class="col-12 col-md-4">
-                                
+                                <form class="d-flex" action="/movies/search">
+                                    <input class="form-control me-2" type="search" placeholder="Buscar pelicula..." name="search">
+                                    <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+                                  </form>
                             </div>
                         </div>
                     </div>
