@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<%-include('partials/head') %> 
+<body>
+    <%-include('partials/header') %>
+<div class="container p-5">
+    <h1><%= genre.name %> </h1>
+    <h3>ranking: <%= genre.ranking %> </h3>
+    <ul class="list-group list-group-flush">
+        <% genre.movies.forEach(movie => { %>
+            <li class="list-group-item"><%= movie.title %> <a href="/movies/show/<%= movie.id %> " ><i class="far fa-eye"></i></a> </li>
+        <% }) %>
+    
+      </ul>
+</div>
+    
+    <%-include('partials/footer') %> 
+
+</body>
+</html>

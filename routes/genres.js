@@ -3,7 +3,7 @@ var router = express.Router();
 
 const {list,show} = require('../controllers/genresController');
 
-/* /movies */
+/* /genres */
 router.get('/list', list);
 router.get('/show/:id',show);
 

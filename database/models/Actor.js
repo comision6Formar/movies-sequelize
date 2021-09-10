@@ -32,5 +32,18 @@ module.exports = (sequelize,dataTypes) => {
 
     const Actor = sequelize.define(alias, cols, config);
 
+
+     /* relaciones */
+
+     Actor.associate = models => {
+        /* defino las relaciones */
+        Actor.belongsToMany(models.Pelicula,{
+            as : 'movies',
+            through : 'actor_movie',
+            foreignKey : 'actor_id',
+            otherKey : 'movie_id'
+        })
+    }
+
     return Actor
 }

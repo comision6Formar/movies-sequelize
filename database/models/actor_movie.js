@@ -17,7 +17,8 @@ module.exports = (sequelize,dataTypes) => {
     }
 
     let config = {
-        underscored : true
+        underscored : true,
+        tableName : 'actor_movie'
     }
 
     const actor_movie = sequelize.define(alias, cols, config);

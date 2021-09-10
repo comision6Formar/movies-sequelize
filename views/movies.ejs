@@ -1,83 +1,112 @@
 <!DOCTYPE html>
-<html>
-<%- include('partials/head') %> 
+<html lang="en">
+<%- include('partials/head') %>
+
   <body>
-    <%- include('partials/header') %> 
-
-    <main class="container">
-        <section class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-12 col-md-4">
-                                <%= title %> 
-
-                            </div>
-                            <div class="col-12 col-md-4">
-                                <form action="/movies/filter" class="row">
-                                    <div class="col-8">
-                                        <select name="genero" id="" class="form-select">
-                                            <option value="" selected hidden>Filtrar por género...</option>
-                                            <% genres.forEach(genre => { %>
-                                                <option value="<%= genre.id %>"><%= genre.name %></option>
-                                            <% }) %>
-                                        </select>
-                                    </div>
-                                    <div class="col-4">
-                                        <button type="submit" class="btn btn-secondary">Filtrar</button>
-
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-12 col-md-4">
-                                <form class="d-flex" action="/movies/search">
-                                    <input class="form-control me-2" type="search" placeholder="Buscar pelicula..." name="search">
-                                    <button class="btn btn-outline-secondary" type="submit">Buscar</button>
-                                  </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                              <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Rating</th>
-                                <th scope="col">Premios</th>
-                                <th scope="col">Estreno</th>
-                                <th scope="col">Genero</th>
-                                <th scope="col">Acciones</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                                <% movies.forEach(movie => { %>
-                                    <tr>
-                                        <th scope="row"><%= movie.id %> </th>
-                                        <td><%= movie.title %> </td>
-                                        <td><%= movie.rating %> </td>
-                                        <td><%= movie.awards %> </td>
-                                        <td><%= movie.release_date.toLocaleDateString() %> </td>
-                                        <td><%= movie.genre_id %> </td>
-                                        <td>
-                                            <div>
-                                                <a class="btn btn-sm btn-primary" href="/movies/show/<%= movie.id %>">ver más</a>
-                                            </div>
-                                        </td>
-                                      </tr>
-                                <% }) %>
-                            </tbody>
-                          </table>
-                    </div>
-                </div>
+    <%- include('partials/header') %>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 my-4">
+            <div class="form-row d-flex justify-content-around">
+              <div class="col-2">
+                <a class="btn btn-outline-dark w-100" href="/movies/add">Agregar película</a>
+              </div>
+              <div class="col-3">
+                <form action="/movies/order" id="form-order">
+                  <select class="custom-select" name="order" id="order" onchange="document.getElementById('form-order').submit()">
+                    <option hidden selected>Ordenar por</option>
+                    <option value="title/ASC">Titulo</option>
+                    <option value="release_date/DESC">Ultimos estrenos</option>
+                    <option value="rating/DESC">Mejor rating</option>
+                    <option value="awards/DESC">Cantidad de premios</option>
+                  </select>
+                </form>
+              </div>
+              <div class="col-2">
+                <form action="">
+                  <select class="custom-select" name="limit" id="limit">
+                    <option selected hidden>Mostrar</option>
+                    <option value=4>4 películas</option>
+                    <option value=8>8 películas</option>
+                    <option value=12>12 películas</option>
+                  </select>
+                </form>
+              </div>
+              <div class="col-5">
+                <form class="row" action="/movies/search">
+                  <div class="col-8">
+                    <input type="text" class="form-control" placeholder="Buscar película por título o género"
+                      name="search" required>
+                  </div>
+                  <div class="col-4">
+                    <button class="btn btn-outline-dark w-100" type="submit">Buscar</button>
+                  </div>
+                </form>
+              </div>
             </div>
-        </section>
-    </main>
+          </div>
+          <div class="col-12 d-flex justify-content-end">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="col-12">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Pelicula</th>
+                  <th scope="col">Estreno</th>
+                  <th scope="col">Rating</th>
+                  <th scope="col">Premios</th>
+                  <th scope="col">Género</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% movies.forEach((movie,index) => { %>
+                  <tr>
+                    <th scope="row"><%= index + 1 %> </th>
+                    <td><%= movie.title %> </td>
+                    <td><%= movie.release_date.toLocaleDateString() %> </td>
+                    <td><%= movie.rating %> </td>
+                    <td><%= movie.awards %> </td>
+                    <td><%= movie.genre ? movie.genre.name : 'sin género'%> </td>
+                    <td class="d-flex flex-column">
+                      <div>
+                        <a class="btn btn-sm btn-success my-1 w-100" href="/movies/edit/<%= movie.id %>">Editar</a>
+                      </div>
+                      <div>
+                        <form action="/movies/destroy/<%= movie.id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-sm btn-danger my-1 w-100" type="submit">Eliminar</button>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                <% }) %>
+              </tbody>
+              
+            </table>
+           
+          </div>
+        </div>
+      </div>
 
-
-
-    <%- include('partials/scripts') %> 
-
+      <%- include('partials/footer') %>
   </body>
+
 </html>

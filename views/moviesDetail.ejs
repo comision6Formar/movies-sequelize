@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head') %>
+
+  <body>
+    <%- include('partials/header') %>
+      <div class="container">
+        <div class="row">
+          <div class="col-6">
+            <div class="card p-3 m-5">
+              <div class="card-body d-flex justify-content-center">
+                <img class="img-fluid"
+                  src="/images/"
+                  alt="proximamente... imagen">
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="card p-3 m-5">
+              <div class="card-body">
+                <div class="d-flex justify-content-end">
+                  <form action="/movies/delete/<%= movie.id %>?_method=delete" method="POST">
+                    <button class="btn-sm btn-danger m-1"><i class="fas fa-trash-alt"></i></button>
+                  </form>
+                  <form action="/movies/edit/<%= movie.id %>">
+                    <button class="btn-sm btn-success m-1"><i class="fas fa-edit"></i></button>
+                  </form>
+                </div>
+                <h5 class="card-title">
+                  <%= movie.title %>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">
+                  <%= movie.genre.name %> 
+                </h6>
+                    <a class="ml-2" href="/genres/"><i
+                          class="far fa-eye"></i></a>
+
+
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">Rating: <%= movie.rating %> 
+                      </li>
+                      <li class="list-group-item">Premios: <%= movie.awards %> 
+                      </li>
+                      <li class="list-group-item">Estreno: <%= movie.release_date.toLocaleDateString() %> 
+                      </li>
+                    </ul>
+                      <h6 class="card-subtitle mt-3"><b>Actores</b> </h6>
+                      <ul class="list-group list-group-flush">
+                        <% movie.actors.forEach(actor => { %>
+                          <li class="list-group-item">
+                            <%= actor.first_name %> <%= actor.last_name %>  
+                          </li>
+                        <% }) %>
+                      </ul>
+                      <div class="d-flex justify-content-end">
+                        <a href="/movies/list" class="btn btn-secondary mt-3 ">Volver a películas</a>
+                      </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <%- include('partials/footer') %>
+  </body>
+
+</html>
